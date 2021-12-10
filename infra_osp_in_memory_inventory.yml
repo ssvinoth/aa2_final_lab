@@ -4,8 +4,8 @@
   connection: local
   gather_facts: false
   vars:
-    guid: "{{ lookup('ENV','GUID') }}"
-    home: "{{ lookup('ENV','HOME') }}"
+    guid: "{{ lookup('env','GUID') }}"
+    home: "{{ lookup('env','HOME') }}"
     internal_domain: "example.com"
   tasks:
     - name: Collection instance info
