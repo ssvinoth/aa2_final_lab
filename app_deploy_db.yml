@@ -15,7 +15,9 @@
     - name: Setup firewall
       include_role:
         name: firewall
-      become: true
+        apply:
+          become: true
+      #become: true
       vars:
         firewall_services:
           - postgresql
@@ -23,7 +25,9 @@
     - name: Setup postgresql server
       include_role:
         name: postgres
-      become: true
+        apply:
+          become: true
+      #become: true
     - debug:
         msg: "Finished postgresql server setup"
 
