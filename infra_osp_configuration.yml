@@ -1,6 +1,6 @@
 ---
 - name: Include in-memory inventory play
-  include: infra_osp_in_memory_inventory.yml
+  import_playbook: infra_osp_in_memory_inventory.yml
 
 - name: Configure osp server instances - DNS Update and Satellite Registration
   hosts: osp_instances
