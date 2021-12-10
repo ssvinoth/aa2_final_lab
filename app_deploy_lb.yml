@@ -1,0 +1,29 @@
+---
+# Deploy Multi-Tier Application
+
+# Before starting - lets get the openstack inventory in-memory
+- name: Include openstack instances into in-memory inventory play
+  import_playbook: infra_osp_in_memory_inventory.yml
+
+# Install and configure HAProxy loadbalancer server
+- name: Play to setup Haproxy
+  hosts: lb
+  tasks:
+    - debug:
+        msg: "Start HAproxy server setup"
+
+    - name: Setup firewall
+      include_role:
+        name: firewall
+      vars:
+        firewall_services:
+          - http
+        firewall_tcp_ports:
+          - 5000
+
+    - name: Setup HAproxy server
+      include_role:
+        name: haproxy
+
+    - debug:
+        msg: "Finished HAproxy server setup"

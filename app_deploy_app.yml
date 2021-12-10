@@ -1,0 +1,30 @@
+---
+# Deploy Multi-Tier Application
+
+# Before starting - lets get the openstack inventory in-memory
+- name: Include openstack instances into in-memory inventory play
+  import_playbook: infra_osp_in_memory_inventory.yml
+
+
+# Install and Setup flask application servers
+- name: Play to Setup flask application servers
+  hosts: app
+  tasks:
+    - debug:
+        msg: "Start Flask server setup"
+
+    - name: Setup firewall
+      include_role:
+        name: firewall
+      vars:
+        firewall_services:
+          - http
+        firewall_tcp_ports:
+          - 8080
+
+    - name: Setup flask server
+      include_role:
+        name: flask
+
+    - debug:
+        msg: "Finished Flask server setup"
