@@ -1,0 +1,13 @@
+---
+# Before starting - lets get the openstack inventory in-memory
+- name: Include openstack instances into in-memory inventory play
+  import_playbook: infra_osp_in_memory_inventory.yml
+
+- name: Destroy osp instances 
+  hosts: osp_instances
+  tasks:
+    - name: Delete server instances
+      os_server:
+          name: "{{ hostvars[inventory_hostname] }}"
+          state: absent
+ 
