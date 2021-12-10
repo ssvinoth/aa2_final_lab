@@ -1,0 +1,18 @@
+---
+
+# Before starting - lets get the openstack inventory in-memory
+- name: Include openstack instances into in-memory inventory play
+  import_playbook: infra_osp_in_memory_inventory.yml
+
+- name: Smoke Test the multi-tier app deployment
+  hosts: lb
+  tasks:
+    - name: Smoke test for multi-tier app
+      uri:
+        url: "http://{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}/index.html"
+        method: GET
+        return_content: yes
+      register: content
+    - name: Debug Content
+      debug:
+        msg: "{{ content }}"      
