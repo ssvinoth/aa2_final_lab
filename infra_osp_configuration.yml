@@ -1,0 +1,64 @@
+---
+- name: Include in-memory inventory play
+  include: infra_osp_in_memory_inventory.yml
+
+- name: Configure osp server instances - DNS Update and Satellite Registration
+  hosts: osp_instances
+  # vars:
+  #   satellite_activationkey: gpte-labs-rhel8
+  #   satellite_org: prod
+  become: yes
+  become_method: sudo
+  become_user: root
+  tasks:
+# **** DNS UPDATE **** #
+  
+    # Get the controller (localhost) network info to find the dns ip
+    - name : Gather network facts
+      become: no
+      setup:
+        gather_subset:
+          - 'network'
+      delegate_facts: true
+      delegate_to: control_node
+      connection: local
+
+    - debug:
+        var: hostvars.localhost.ansible_default_ipv4.address
+  #   # Lets updat the DNS IP in the target node
+  #   - name: DNS IP updated
+  #     lineinfile:
+  #       state: present
+  #       path: /etc/sysconfig/network-scripts/ifcfg-eth0
+  #       line: "{{ item }}"
+  #     loop:
+  #       - PEERDNS=no
+  #       - DNS1={{ hostvars.localhost.ansible_default_ipv4.address }}
+  #     register: network_update
+  #   # Restart the network Manager 
+  #   - name: Restart the network manager service
+  #     service:
+  #       name: NetworkManager
+  #       state: restarted
+  #     when: network_update.changed | bool
+
+
+  # # **** END DNS UPDATE **** #
+  # # **** Subscribe to Satellite Server **** #
+  #   # Install the Katello-ca-consumer package 
+  #   - name: Install Katello-ca-consumer package
+  #     dnf:
+  #       name: http://satellite.example.com/pub/katello-ca-consumer-latest.noarch.rpm
+  #       state: present
+  #       disable_gpg_check: true
+      
+  #   # Register using subscription manager
+  #   - name: Register the node with satellite
+  #     redhat_subscription:
+  #       #server_hostname: satellite.example.com
+  #       org_id: "{{ satellite_org }}"
+  #       activationkey: "{{ satellite_activationkey }}"
+  #       auto_attach: true
+  #       state: present
+  # # **** END Subscribe to Satellite Server **** #
+
