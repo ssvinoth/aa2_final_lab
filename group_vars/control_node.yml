@@ -2,7 +2,9 @@
 # Seems that lookup does not work in vars file
 #guid: "{{ lookup('env','GUID') }}"
 # osp_cloud_project: "{{ guid }}-project"
-osp_cloud_project: 0ad4-project
+#osp_cloud_project: 0ad4-project
+# ansible tower issue 
+osp_cloud_project: devstack
 
 instances:
   - name: app-01.example.com
