@@ -1,6 +1,7 @@
 ---
-# guid: "{{ lookup('env','GUID') }}"
-osp_cloud_project: "0ad4-project"
+guid: "{{ lookup('env','GUID') }}"
+osp_cloud_project: "{{ guid }}-project"
+# osp_cloud_project: "0ad4-project"
 
 instances:
   - name: app-01.example.com
