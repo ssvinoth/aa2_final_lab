@@ -14,7 +14,7 @@
         cloud: "{{ osp_cloud_project }}"
       register: instances
 
-    - name: Build In-Memory inventory
+    - name: Build In-Memory inventory - grouping by server_type
       add_host:
         host: "{{ instance.name }}"
         group: "{{ instance.metadata.server_type }}"
@@ -25,7 +25,7 @@
       loop_control:
         loop_var: instance
 
-    - name: Build In-Memory inventory - grouping osp_instances
+    - name: Build In-Memory inventory - grouping by osp_instances
       add_host:
         host: "{{ instance.name }}"
         group: "{{ instance.metadata.AnsibleGroup }}"
@@ -37,19 +37,19 @@
         loop_var: instance
 
 
-- name: Print current hosts
-  hosts: localhost
-  connection: local
-  gather_facts: false
-  tasks:
-    - debug: var=groups
+# - name: Print current hosts
+#   hosts: localhost
+#   connection: local
+#   gather_facts: false
+#   tasks:
+#     - debug: var=groups
 
-- name: Verify OpenStack Instances
-  hosts: osp_instances
-  tasks:
-    - name: Verify connectivity
-      ping:
-      register: output
+# - name: Verify OpenStack Instances
+#   hosts: osp_instances
+#   tasks:
+#     - name: Verify connectivity
+#       ping:
+#       register: output
 
-    - debug:
-        msg: "{{ output }}"
+#     - debug:
+#         msg: "{{ output }}"
