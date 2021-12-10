@@ -17,7 +17,7 @@
     - name: Build In-Memory inventory
       add_host:
         host: "{{ instance.name }}"
-        group: "{{ instance.metadata.AnsibleGroup }}"
+        group: "{{ instance.metadata.server_type }}"
         ansible_host: "{{ instance.private_v4 }}"
         ssh_private_key_file: "{{ home }}/.ssh/{{ guid }}key.pem"
       when: instance.metadata.AnsibleGroup == "osp_instances"
