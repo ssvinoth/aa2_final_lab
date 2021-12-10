@@ -3,10 +3,10 @@
   hosts: control_node
   connection: local
   gather_facts: false
-  vars:
-    guid: "{{ lookup('env','GUID') }}"
-    home: "{{ lookup('env','HOME') }}"
-    internal_domain: "example.com"
+  # vars:
+  #   guid: "{{ lookup('env','GUID') }}"
+  #   home: "{{ lookup('env','HOME') }}"
+  #   internal_domain: "example.com"
   tasks:
     - name: Collection instance info
       os_server_info:
