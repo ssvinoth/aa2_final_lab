@@ -22,6 +22,10 @@
       delegate_facts: true
       delegate_to: control_node
       connection: local
+      register: network_facts
+
+    - debug:
+        var: network_facts
 
     - debug:
         var: hostvars.localhost.ansible_default_ipv4.address
