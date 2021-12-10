@@ -16,6 +16,8 @@
     - name: Setup firewall
       include_role:
         name: firewall
+        apply:
+          become: true      
       vars:
         firewall_services:
           - http
@@ -25,6 +27,7 @@
     - name: Setup flask server
       include_role:
         name: flask
-
+        apply:
+          become: true
     - debug:
         msg: "Finished Flask server setup"
