@@ -1,2 +1,3 @@
 satellite_activationkey: gpte-labs-rhel8
 satellite_org: prod
+control_dns: 192.168.50.180

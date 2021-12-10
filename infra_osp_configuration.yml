@@ -24,11 +24,12 @@
       connection: local
       register: network_facts
 
+    # - debug:
+    #     var: network_facts
     - debug:
-        var: network_facts
-
+        var: satellite_activationkey
     - debug:
-        var: hostvars.localhost.ansible_default_ipv4.address
+        var: control_dns
   #   # Lets updat the DNS IP in the target node
   #   - name: DNS IP updated
   #     lineinfile:
