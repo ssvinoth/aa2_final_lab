@@ -3,8 +3,9 @@
 #guid: "{{ lookup('env','GUID') }}"
 # osp_cloud_project: "{{ guid }}-project"
 #osp_cloud_project: 0ad4-project
-# ansible tower issue 
+# ansible tower issue , it can't take actual cloud tenant name . Refer https://access.redhat.com/solutions/3295691
 osp_cloud_project: devstack
+#guid: 0ad4
 
 instances:
   - name: app-01.example.com

@@ -25,6 +25,18 @@
       loop_control:
         loop_var: instance
 
+    - name: Build In-Memory inventory - grouping osp_instances
+      add_host:
+        host: "{{ instance.name }}"
+        group: "{{ instance.metadata.AnsibleGroup }}"
+        ansible_host: "{{ instance.private_v4 }}"
+        ssh_private_key_file: "{{ home }}/.ssh/{{ guid }}key.pem"
+      when: instance.metadata.AnsibleGroup == "osp_instances"
+      loop: "{{ instances.openstack_servers }}"
+      loop_control:
+        loop_var: instance
+
+
 - name: Print current hosts
   hosts: localhost
   connection: local
